@@ -3,6 +3,7 @@ package test;
 import org.junit.jupiter.api.Test;
 import data.DataHelper;
 import page.CardsListPage;
+import page.DashboardPage;
 import page.LoginPageV2;
 import page.MoneyTransferPage;
 
@@ -17,6 +18,7 @@ class MoneyTransferTest {
         var loginPage = new LoginPageV2();
         var moneyTransferPage = new MoneyTransferPage();
         var cardsPage = new CardsListPage();
+        var dashPage = new DashboardPage();
 //    var loginPage = open("http://localhost:9999", LoginPageV1.class);
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
@@ -25,6 +27,8 @@ class MoneyTransferTest {
         cardsPage.deposit();
         var transferInfo = DataHelper.getTransferInfo();
         var  cardsListPage= moneyTransferPage.validTransfer(transferInfo);
+        dashPage.getFirstCardBalance();
+
 
 
 
