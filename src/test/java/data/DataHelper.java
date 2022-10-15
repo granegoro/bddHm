@@ -1,7 +1,6 @@
 package data;
 
 import lombok.Value;
-import page.DashboardPage;
 
 public class DataHelper {
     private DataHelper() {}
