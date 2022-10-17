@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import data.DataHelper;
 import page.CardsListPage;
@@ -8,6 +9,7 @@ import page.MoneyTransferPage;
 
 import javax.xml.crypto.Data;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 class MoneyTransferTest {
@@ -25,6 +27,9 @@ class MoneyTransferTest {
         cardsPage.deposit();
         var transferInfo = DataHelper.getTransferInfo();
         var cardsListPage = moneyTransferPage.validTransfer(transferInfo);
+        cardsPage.getFirstCardBalance();
+
+
 
 
     }
