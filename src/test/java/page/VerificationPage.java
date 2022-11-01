@@ -14,10 +14,9 @@ public class VerificationPage {
         codeField.shouldBe(visible);
     }
 
-    public CardsListPage validVerify(DataHelper.VerificationCode verificationCode) {
+    public DashboardPage validVerify(DataHelper.VerificationCode verificationCode) {
         codeField.setValue(verificationCode.getCode());
         verifyButton.click();
-        return new CardsListPage();
+        return new DashboardPage();
     }
 }
-
