@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 public class TransferPage {
 
-    private SelenideElement transferButton = $("[data-test-id='action-transfer]");
+    private SelenideElement transferButton = $("[data-test-id='action-transfer']");
     private SelenideElement amountInput = $("[data-test-id='amount'] input");
     private SelenideElement fromInput = $("[data-test-id='from'] input");
     private SelenideElement transferHead = $(byText("Пополнение карты"));
@@ -21,11 +21,11 @@ public class TransferPage {
     }
 
     public DashboardPage makeValidTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
-        makeTrasfer(amountToTransfer, cardInfo);
+        makeTransfer(amountToTransfer, cardInfo);
         return new DashboardPage();
     }
 
-    public void makeTrasfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
+    public void makeTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
         amountInput.setValue(amountToTransfer);
         fromInput.setValue(cardInfo.getCardNumber());
         transferButton.click();

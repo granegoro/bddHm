@@ -10,6 +10,7 @@ import page.TransferPage;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static data.DataHelper.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
     @Test
@@ -25,51 +26,35 @@ class MoneyTransferTest {
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
         var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
         var amount = generateValidAmount(firstCardBalance);
-
-
-
-
-
-        open("http://localhost:9999");
-        var loginPage = new LoginPageV2();
-        var moneyTransferPage = new MoneyTransferPage();
-        var cardsPage = new CardsListPage();
-//    var loginPage = open("http://localhost:9999", LoginPageV1.class);
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-        cardsPage.deposit();
-        var transferInfo = DataHelper.getTransferInfo();
-        var cardsListPage = moneyTransferPage.validTransfer(transferInfo);
-       /* cardsPage.getFirstCardBalance();*/
-        $("[data-test-id=92df3f1c-a033-48e6-8390-206f6b1f56c0]").shouldHave(integer(cardsListPage.getFirstCardBalance());
-               /* .shouldHave(text(cardsListPage.getFirstCardBalance() + DataHelper.getTransferInfo().getAmount() ));*/
-
-
-
+        var expectedBalanceFirstCard = firstCardBalance - amount;
+        var expectedBalanceSecondCard = secondCardBalance + amount;
+        var transferPage = dashboardPage.selectCardToTransfer(secondCardInfo);
+        dashboardPage = transferPage.makeValidTransfer(String.valueOf(amount), firstCardInfo);
+        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+        assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
+        assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
+
+//    @Test
+//    void shouldNotTransferFromFirstToSecondIfInvalidAmount() {
+//
+//        var loginPage = open("http://localhost:9999", LoginPageV2.class);
+//        var authInfo = DataHelper.getAuthInfo();
+//        var verificationPage = loginPage.validLogin(authInfo);
+//        var verificationCode = DataHelper.getVerificationCode();
+//        var dashboardPage = verificationPage.validVerify(verificationCode);
+//        var firstCardInfo = getFirstCardInfo();
+//        var secondCardInfo = getSecondCardInfo();
+//        var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
+//        var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+//        var amount = generateInvalidAmount(firstCardBalance);
+//        var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+//        dashboardPage = transferPage.makeValidTransfer(String.valueOf(amount), secondCardInfo);
+//        transferPage.findErrorMessage("");
+//        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+//        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+//        assertEquals(firstCardBalance, actualBalanceFirstCard);
+//        assertEquals(secondCardBalance, actualBalanceSecondCard);
+//    }
 }
-
-   /* @Test
-    void shouldTransferMoneyBetweenOwnCardsV2() {
-        open("http://localhost:9999");
-        var loginPage = new LoginPageV2();
-//    var loginPage = open("http://localhost:9999", LoginPageV2.class);
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-    }
-
-    @Test
-    void shouldTransferMoneyBetweenOwnCardsV3() {
-        var loginPage = open("http://localhost:9999", LoginPageV2.class);
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-        verificationPage.validVerify(verificationCode);
-    }
-}
-
-*/
