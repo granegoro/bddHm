@@ -35,4 +35,26 @@ class MoneyTransferTest {
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
+
+//    @Test
+//    void shouldNotTransferFromFirstToSecondIfInvalidAmount() {
+//
+//        var loginPage = open("http://localhost:9999", LoginPageV2.class);
+//        var authInfo = DataHelper.getAuthInfo();
+//        var verificationPage = loginPage.validLogin(authInfo);
+//        var verificationCode = DataHelper.getVerificationCode();
+//        var dashboardPage = verificationPage.validVerify(verificationCode);
+//        var firstCardInfo = getFirstCardInfo();
+//        var secondCardInfo = getSecondCardInfo();
+//        var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
+//        var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+//        var amount = generateInvalidAmount(firstCardBalance);
+//        var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+//        dashboardPage = transferPage.makeValidTransfer(String.valueOf(amount), secondCardInfo);
+//        transferPage.findErrorMessage("");
+//        var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+//        var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+//        assertEquals(firstCardBalance, actualBalanceFirstCard);
+//        assertEquals(secondCardBalance, actualBalanceSecondCard);
+//    }
 }
